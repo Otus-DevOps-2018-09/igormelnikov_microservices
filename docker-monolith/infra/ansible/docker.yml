@@ -1,0 +1,28 @@
+- name: Install docker
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Add apt https repo support and python
+      apt:
+        name: "{{ item }}"
+      loop:
+        - gnupg-curl
+        - python-pip
+
+    - name: Add apt key
+      apt_key:
+        keyserver: https://download.docker.com/linux/ubuntu/gpg
+        id: 0EBFCD88
+
+    - name: Add apt repo
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+
+    - name: Install docker CE package
+      apt:
+        name: docker-ce
+
+    - name: Install python docker module
+      pip:
+        name: docker
