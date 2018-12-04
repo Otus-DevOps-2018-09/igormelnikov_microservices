@@ -8,7 +8,7 @@ WORKDIR /app
 
 RUN apk add --no-cache --virtual .build-deps \
     make \
-    g++ \
+    gcc \
     libc-dev && \
     bundle install && \
     apk del .build-deps
