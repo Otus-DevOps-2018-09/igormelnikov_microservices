@@ -1,16 +1,20 @@
-FROM ubuntu:16.04
-RUN apt-get update \
-    && apt-get install -y ruby-full ruby-dev build-essential \
-    && gem install bundler -N
+FROM ruby:2.4.5-alpine3.8
 
 ENV POST_SERVICE_HOST post
 ENV POST_SERVICE_PORT 5000
 ENV COMMENT_SERVICE_HOST comment
 ENV COMMENT_SERVICE_PORT 9292
 
-WORKDIR /app
 COPY Gemfile* /app/
-RUN bundle install
+WORKDIR /app
+
+RUN apk add --no-cache --virtual .build-deps \
+    make \
+    g++ \
+    libc-dev && \
+    bundle install && \
+    apk del .build-deps
+
 COPY . /app
 
 CMD ["puma"]
