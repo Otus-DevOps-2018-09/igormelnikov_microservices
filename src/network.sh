@@ -3,7 +3,7 @@ docker run -d --rm --network=reddit --network-alias=post_db_host --network-alias
 
 docker run -d --rm --network=reddit --network-alias=post_srv_host \
 -e POST_DATABASE_HOST='post_db_host' \
- igormelnikov/post:2.0
+ igormelnikov/post:3.0
 
 docker run -d --rm --network=reddit --network-alias=comment_srv_host \
 -e COMMENT_DATABASE_HOST='comment_db_host' \

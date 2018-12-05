@@ -8,7 +8,7 @@ RUN apk add --no-cache --virtual .build-deps \
     make \
     gcc \
     libc-dev && \
-    bundle install && \
+    bundle install --gemfile=/app/Gemfile && \
     apk del .build-deps
 
 COPY . /app
