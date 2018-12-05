@@ -3,7 +3,7 @@ igormelnikov microservices repository
 
 [![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=docker-1)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
 
-## Ansible-2
+## Docker-2
 
 В директории `docker-monolith` находятся Dockerfile и файлы конфигурации для конфигурации и деплоя reddit приложения с помощью docker.
 
