@@ -6,8 +6,6 @@ ENV COMMENT_SERVICE_HOST comment
 ENV COMMENT_SERVICE_PORT 9292
 
 COPY Gemfile* /app/
-WORKDIR /app
-
 RUN apk add --no-cache --virtual .build-deps \
     make \
     g++ \
@@ -17,4 +15,5 @@ RUN apk add --no-cache --virtual .build-deps \
 
 COPY . /app
 
+WORKDIR /app
 CMD ["puma"]

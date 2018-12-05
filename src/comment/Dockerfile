@@ -4,8 +4,6 @@ ENV COMMENT_DATABASE_HOST comment_db
 ENV COMMENT_DATABASE comments
 
 COPY Gemfile* /app/
-WORKDIR /app
-
 RUN apk add --no-cache --virtual .build-deps \
     make \
     gcc \
@@ -15,4 +13,5 @@ RUN apk add --no-cache --virtual .build-deps \
 
 COPY . /app
 
+WORKDIR /app
 CMD ["puma"]
