@@ -1,4 +1,6 @@
 docker network create reddit
+docker volume create reddit_db
+
 docker run -d --rm --network=reddit --network-alias=post_db_host --network-alias=comment_db_host -v reddit_db:/data/db mongo:latest
 
 docker run -d --rm --network=reddit --network-alias=post_srv_host \
