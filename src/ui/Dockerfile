@@ -4,8 +4,9 @@ ENV POST_SERVICE_HOST post
 ENV POST_SERVICE_PORT 5000
 ENV COMMENT_SERVICE_HOST comment
 ENV COMMENT_SERVICE_PORT 9292
+ENV APPHOME /app/
 
-COPY Gemfile* /app/
+COPY Gemfile* $APPHOME
 RUN apk add --no-cache --virtual .build-deps \
     make \
     g++ \
@@ -13,7 +14,7 @@ RUN apk add --no-cache --virtual .build-deps \
     bundle install --gemfile=/app/Gemfile && \
     apk del .build-deps
 
-COPY . /app
+COPY . $APPHOME
 
-WORKDIR /app
+WORKDIR $APPHOME
 CMD ["puma"]
