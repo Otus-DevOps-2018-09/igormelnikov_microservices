@@ -1,7 +1,7 @@
 # igormelnikov_microservices
 igormelnikov microservices repository
 
-[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=docker-3)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
+[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=docker-4)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
 
 ## Docker-2
 
@@ -18,3 +18,7 @@ igormelnikov microservices repository
 В директории `src` находятся конфигурации Docker контейнеров для компонентов приложения - `post`, `comment` и `ui`.
 
 Файл `src/network.sh` содержит скрипты для создания сети и запуска контейнеров.
+
+## Docker-4
+
+Базовое имя проекта **docker-compose** задаётся флагом `-p` или переменной окружения `COMPOSE_PROJECT_NAME`. В противном случае, в качестве имени проекта используется имя директории проекта.
