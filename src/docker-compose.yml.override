@@ -1,0 +1,59 @@
+version: '3.3'
+services:
+  post_db:
+    image: mongo:${MONGO_VERSION}
+    volumes:
+      - post_db:/data/db
+    networks:
+      - back_net
+  ui:
+    build: ./ui
+    image: ${USERNAME}/ui:${UI_VERSION}
+    ports:
+      - ${PUMA_PORT}:${PUMA_PORT}/tcp
+    networks:
+      - front_net
+    depends_on:
+      - git-sync
+    volumes:
+      - srv:/app:ro
+
+  post:
+    build: ./post-py
+    image: ${USERNAME}/post:${POST_VERSION}
+    networks:
+      - front_net
+      - back_net
+    depends_on:
+      - git-sync
+    volumes:
+      - srv:/app:ro
+
+  comment:
+    build: ./comment
+    image: ${USERNAME}/comment:${COMMENT_VERSION}
+    networks:
+      - front_net
+      - back_net
+    depends_on:
+      - git-sync
+    volumes:
+      - srv:/app:ro
+
+  git-sync:
+    build: ./git-sync
+    image: ${USERNAME}/git-sync:1.0
+    volumes:
+      - srv:/app:z
+volumes:
+  post_db:
+  srv:
+    driver: local
+
+networks:
+  back_net:
+    driver_opts:
+      subnet: 10.0.2.0/24
+  front_net:
+    driver_opts:
+      subnet: 10.0.1.0/24

@@ -4,7 +4,7 @@ ENV POST_SERVICE_HOST post
 ENV POST_SERVICE_PORT 5000
 ENV COMMENT_SERVICE_HOST comment
 ENV COMMENT_SERVICE_PORT 9292
-ENV APPHOME /app/
+ENV APPHOME /app/ui/
 
 COPY Gemfile* $APPHOME
 RUN apk add --no-cache --virtual .build-deps \
