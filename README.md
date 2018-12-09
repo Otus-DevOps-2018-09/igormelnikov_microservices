@@ -22,3 +22,7 @@ igormelnikov microservices repository
 ## Docker-4
 
 Базовое имя проекта **docker-compose** задаётся флагом `-p` или переменной окружения `COMPOSE_PROJECT_NAME`. В противном случае, в качестве имени проекта используется имя директории проекта.
+
+В директории `src/git-sync` описан контейнер, автоматически подтягивающий ветку `microservices` из репозитория https://github.com/igormelnikov/reddit в общий том.
+
+`docker-compose.override.yml` реализует запуск контейнеров `ui`, `comment`, `post`, зависящих от `git-sync`, и разделённого тома с кодом приложения между ними. Puma запускается с опциями отладки.
