@@ -17,12 +17,20 @@ comment_service_port = ENV['COMMENT_SERVICE_PORT'] || '4567'
 ## Create and register metrics
 prometheus = Prometheus::Client.registry
 
-ui_health_gauge = Prometheus::Client::Gauge.new(:ui_health, 'Health status of UI service')
+unless prometheus.exist?(:ui_health)
+  ui_health_gauge = Prometheus::Client::Gauge.new(:ui_health, 'Health status of UI service')
+  prometheus.register(ui_health_gauge)
+end
+
+unless prometheus.exist?(:ui_health_post_availability)
 ui_health_post_gauge = Prometheus::Client::Gauge.new(:ui_health_post_availability, 'Check if Post service is available to UI')
-ui_health_comment_gauge = Prometheus::Client::Gauge.new(:ui_health_comment_availability, 'Check if Comment service is available to UI')
-prometheus.register(ui_health_gauge)
 prometheus.register(ui_health_post_gauge)
+end
+
+unless prometheus.exist?(:ui_health_post_availability)
+ui_health_comment_gauge = Prometheus::Client::Gauge.new(:ui_health_comment_availability, 'Check if Comment service is available to UI')
 prometheus.register(ui_health_comment_gauge)
+end
 
 @@host_info=ENV['HOSTNAME']
 @@env_info=ENV['ENV']
