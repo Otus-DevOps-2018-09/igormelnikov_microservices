@@ -17,6 +17,7 @@ services:
       - git-sync
     volumes:
       - srv:/app
+    command: puma --debug -w 2
 
   post:
     build: ./post-py
@@ -39,6 +40,7 @@ services:
       - git-sync
     volumes:
       - srv:/app
+    command: puma --debug -w 2
 
   git-sync:
     build: ./git-sync
