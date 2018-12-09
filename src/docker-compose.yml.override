@@ -16,7 +16,7 @@ services:
     depends_on:
       - git-sync
     volumes:
-      - srv:/app:ro
+      - srv:/app
 
   post:
     build: ./post-py
@@ -27,7 +27,7 @@ services:
     depends_on:
       - git-sync
     volumes:
-      - srv:/app:ro
+      - srv:/app
 
   comment:
     build: ./comment
@@ -38,7 +38,7 @@ services:
     depends_on:
       - git-sync
     volumes:
-      - srv:/app:ro
+      - srv:/app
 
   git-sync:
     build: ./git-sync
