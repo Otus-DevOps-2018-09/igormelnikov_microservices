@@ -1,5 +1,5 @@
 - name: Install gitlab-ci container
-  hosts: all
+  hosts: gitlab
   become: true
   tasks:
     - name: Add apt https repo support and python

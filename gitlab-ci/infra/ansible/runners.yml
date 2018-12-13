@@ -1,5 +1,5 @@
 - name: Install gitlab-ci container
-  hosts: all
+  hosts: gitlab
   become: true
   vars_files:
     - secret_vars.yml

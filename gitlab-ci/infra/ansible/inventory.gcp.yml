@@ -6,6 +6,9 @@ hostnames:
   - name
 compose:
   ansible_host: networkInterfaces[0].accessConfigs[0].natIP
+keyed_groups:
+  - key: labels
+    separator: ""
 scopes:
   - https://www.googleapis.com/auth/gcp-compute
 service_account_file: ~/.ansible/docker_gce.json

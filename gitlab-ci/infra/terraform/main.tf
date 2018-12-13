@@ -14,6 +14,9 @@ resource "google_compute_instance" "gitlab-host" {
   machine_type = "n1-standard-1"
   zone = "${var.zone}"
   tags = ["http-server", "https-server"]
+  labels = {
+    "gitlab" = ""
+  }
   boot_disk {
     initialize_params {
       image = "ubuntu-1604-lts"
