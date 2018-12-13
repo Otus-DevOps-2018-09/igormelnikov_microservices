@@ -1,7 +1,6 @@
-- name: Install docker
+- name: Install gitlab-ci container
   hosts: all
   become: true
-
   tasks:
     - name: Add apt https repo support and python
       apt:
@@ -16,7 +15,7 @@
       apt_repository:
         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
 
-    - name: Install docker CE package
+    - name: Install docker and docker-compose package
       apt:
         name: "{{ item }}"
       loop:
@@ -31,7 +30,7 @@
         src: docker-compose.yml.j2
         dest: /srv/gitlab/docker-compose.yml
 
-    - name: Launch docker container
+    - name: Launch gitlab host container
       docker_service:
         project_src: /srv/gitlab/
         state: present
