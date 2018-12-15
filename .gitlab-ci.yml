@@ -43,6 +43,8 @@ deploy_dev_job:
 staging:
   stage: stage
   when: manual
+  only:
+    - /^\d+\.\d+\.\d+/
   script:
     - echo 'Deploy'
   environment:
@@ -52,8 +54,21 @@ staging:
 production:
   stage: production
   when: manual
+  only:
+    - /^\d+\.\d+\.\d+/
   script:
     - echo 'Deploy'
   environment:
     name: production
     url: https://example.com
+
+branch review:
+  stage: review
+  script: echo "Deploy to $CHI_ENVIRONMENT_SLUG"
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    url: http://$CHI_ENVIRONMENT_SLUG.example.com
+  only:
+    - branches
+  except:
+    - master
