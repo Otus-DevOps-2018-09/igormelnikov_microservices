@@ -45,7 +45,7 @@ branch review:
   script: echo "Deploy to $CHI_ENVIRONMENT_SLUG"
   environment:
     name: branch/$CI_COMMIT_REF_NAME
-    url: http://$CHI_ENVIRONMENT_SLUG.example.com
+    url: http://$CI_ENVIRONMENT_SLUG.example.com
   only:
     - branches
   except:
