@@ -51,7 +51,6 @@ branch review:
   except:
     - master
 
-
 staging:
   stage: stage
   when: manual
