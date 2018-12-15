@@ -1,0 +1,11 @@
+---
+- name: Start app
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Create container from image
+      docker_container:
+        name: reddit
+        image: "igormelnikov/otus-reddit:1.0"
+        network_mode: host
