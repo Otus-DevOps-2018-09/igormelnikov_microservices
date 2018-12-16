@@ -15,8 +15,6 @@ before_script:
   - apk add --update make ca-certificates openssl python
   - update-ca-certificates
   - echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
-  - cd reddit
-  - bundle install
   - wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz
   - tar zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true
   - google-cloud-sdk/bin/gcloud --quiet components update
