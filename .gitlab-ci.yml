@@ -1,5 +1,5 @@
 ---
-image: docker:latest
+image: ruby:2.4.2
 
 stages:
   - build
@@ -42,7 +42,8 @@ deploy_dev_job:
 branch review:
   stage: review
   script:
-    - apk add --update make ca-certificates openssl python
+    - apt-get update
+    - apt-get install make ca-certificates openssl python
     - update-ca-certificates
     - echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
     - echo $GCLOUD_SERVICE_KEY
