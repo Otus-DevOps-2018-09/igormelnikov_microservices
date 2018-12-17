@@ -43,7 +43,7 @@ branch review:
   stage: review
   script:
     - apt-get update
-    - apt-get install make ca-certificates openssl python
+    - apt-get --assume-yes install make ca-certificates openssl python
     - update-ca-certificates
     - echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
     - echo $GCLOUD_SERVICE_KEY
