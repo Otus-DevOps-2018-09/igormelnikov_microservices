@@ -56,7 +56,7 @@ branch review:
     name: branch/$CI_COMMIT_REF_SLUG
     url: http://$CI_ENVIRONMENT_SLUG.example.com
   only:
-    - branches
+    - tags
   except:
     - master
 
