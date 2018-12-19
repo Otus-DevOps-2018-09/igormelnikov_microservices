@@ -1,6 +1,6 @@
 #!/bin/bash
 apt-get update
-apt-get --assume-yes install make ca-certificates openssl python
+apt-get --assume-yes install make ca-certificates openssl python unzip
 update-ca-certificates
 echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
 echo $GCLOUD_SERVICE_KEY
