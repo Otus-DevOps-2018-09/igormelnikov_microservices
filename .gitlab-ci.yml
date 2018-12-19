@@ -42,7 +42,7 @@ deploy_dev_job:
 branch review:
   stage: review
   script:
-    - ~/gitlab-ci/install_gcloud.sh
+    - ../gitlab-ci/install_gcloud.sh
     - wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
     - unzip terraform_0.11.11_linux_amd64.zip -d /usr/local/bin/
     - cd terraform
