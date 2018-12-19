@@ -14,12 +14,20 @@ mongo_database = ENV['COMMENT_DATABASE'] || 'test'
 # Create and register metrics
 prometheus = Prometheus::Client.registry
 
-comment_health_gauge = Prometheus::Client::Gauge.new(:comment_health, 'Health status of Comment service')
-comment_health_db_gauge = Prometheus::Client::Gauge.new(:comment_health_mongo_availability, 'Check if MongoDB is available to Comment')
-comment_count = Prometheus::Client::Counter.new(:comment_count, 'A counter of new comments')
-prometheus.register(comment_health_gauge)
-prometheus.register(comment_health_db_gauge)
-prometheus.register(comment_count)
+unless prometheus.exist?(:comment_health)
+  comment_health_gauge = Prometheus::Client::Gauge.new(:comment_health, 'Health status of Comment service')
+  prometheus.register(comment_health_gauge)
+end
+
+unless prometheus.exist?(:comment_health_mongo_availability)
+  comment_health_db_gauge = Prometheus::Client::Gauge.new(:comment_health_mongo_availability, 'Check if MongoDB is available to Comment')
+  prometheus.register(comment_health_db_gauge)
+end
+
+unless prometheus.exist?(:comment_count)
+  comment_count = Prometheus::Client::Counter.new(:comment_count, 'A counter of new comments')
+  prometheus.register(comment_count)
+end
 
 ## Schedule healthcheck function
 if File.exist?('build_info.txt')
