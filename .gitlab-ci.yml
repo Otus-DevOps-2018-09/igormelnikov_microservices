@@ -53,7 +53,12 @@ branch review:
     - google-cloud-sdk/bin/gcloud --quiet components update
     - google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
     - google-cloud-sdk/bin/gcloud auth list
-    - google-cloud-sdk/bin/gcloud compute --project=docker-223918 instances create instance-1 --zone=europe-west1-b --machine-type=f1-micro --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=773379363350-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --image=ubuntu-1604-xenial-v20181204 --image-project=ubuntu-os-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=instance-1
+    - wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
+    - unzip terraform_0.11.11_linux_amd64.zip -d /usr/local/bin/
+    - cd terraform
+    - terraform init
+    - terraform workspace select $CI_COMMIT_REF_SLUG || terraform workspace new $CI_COMMIT_REF_SLUG
+    - terraform apply -auto-approve -var 'env_name=$CI_COMMIT_REF_SLUG' -var 'project=docker-223918'
   environment:
     name: branch/$CI_COMMIT_REF_SLUG
     url: http://$CI_ENVIRONMENT_SLUG.example.com
