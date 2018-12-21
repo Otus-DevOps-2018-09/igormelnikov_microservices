@@ -58,7 +58,7 @@ branch review:
     - echo $GCLOUD_PROJECT_NAME
     - terraform init
     - terraform workspace select $CI_COMMIT_REF_SLUG || terraform workspace new $CI_COMMIT_REF_SLUG
-    - terraform apply -auto-approve -var 'env_name=$CI_COMMIT_REF_SLUG' -var 'project=$GCLOUD_PROJECT_NAME'
+    - terraform apply -auto-approve -var 'env_name=$CI_COMMIT_REF_SLUG' -var 'project=docker-223918'
   environment:
     name: branch/$CI_COMMIT_REF_SLUG
     url: http://$CI_ENVIRONMENT_SLUG.example.com
