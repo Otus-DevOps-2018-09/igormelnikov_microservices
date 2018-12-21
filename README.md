@@ -1,7 +1,7 @@
 # igormelnikov_microservices
 igormelnikov microservices repository
 
-[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=docker-4)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
+[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=gitlab-ci-1)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
 
 ## Docker-2
 
@@ -26,3 +26,13 @@ igormelnikov microservices repository
 В директории `src/git-sync` описан контейнер, автоматически подтягивающий ветку `microservices` из репозитория https://github.com/igormelnikov/reddit в общий том.
 
 `docker-compose.override.yml` реализует запуск контейнеров `ui`, `comment`, `post`, зависящих от `git-sync`, и разделённого тома с кодом приложения между ними. Puma запускается с опциями отладки.
+
+## Gitlab-ci-1
+
+В директории `gitlab-ci/infra` находится конфигурация инфраструктуры под **Gitlab CI**:
+
+ - `infra/terraform` - поднятие виртуальной машины на GCE;
+ - `ansible/gitlab-ci.yml` - установка и запуск контейнера с Gitlab с помощью docker-compose;
+ - `ansible/runners.yml` - запуск и регистрация раннеров на том же хосте, количество задаётся переменной `count`.
+
+ Оповещения настроены в канале Slack: https://devops-team-otus.slack.com/messages/CDCDS945V/
