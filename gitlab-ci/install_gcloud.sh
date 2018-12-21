@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 apt-get update
 apt-get --assume-yes install make ca-certificates openssl python unzip
 update-ca-certificates
