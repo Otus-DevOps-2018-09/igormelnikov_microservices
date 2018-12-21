@@ -52,10 +52,10 @@ branch review:
     - tar zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true
     - google-cloud-sdk/bin/gcloud --quiet components update
     - google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+    - google-cloud-sdk/bin/gcloud auth list
     - wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
     - unzip terraform_0.11.11_linux_amd64.zip -d /usr/local/bin/
     - cd terraform
-    - echo $GCLOUD_PROJECT_NAME
     - terraform init
     - terraform workspace select $CI_COMMIT_REF_SLUG || terraform workspace new $CI_COMMIT_REF_SLUG
     - terraform apply -auto-approve -var 'env_name=$CI_COMMIT_REF_SLUG' -var 'project=docker-223918'
