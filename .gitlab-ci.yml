@@ -69,13 +69,32 @@ branch review:
 
 stop_review:
   stage: review
-  script:
-    - echo 'Delete env'
+   script:
+    - cd -
+    - apt-get update
+    - apt-get --assume-yes install make ca-certificates openssl python unzip
+    - update-ca-certificates
+    - echo $GOOGLE_CREDENTIALS > ${HOME}/gcloud-service-key.json
+    - wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz
+    - tar zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true
+    - google-cloud-sdk/bin/gcloud --quiet components update
+    - google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+    - google-cloud-sdk/bin/gcloud auth list
+    - wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
+    - unzip terraform_0.11.11_linux_amd64.zip -d /usr/local/bin/
+    - cd terraform
+    - terraform init
+    - terraform workspace select $CI_COMMIT_REF_SLUG
+    - terraform destroy -auto-approve
+    - terraform workspace select default
+    - terraform workspace delete $CI_COMMIT_REF_SLUG
   when: manual
   environment:
     name: branch/$CI_COMMIT_REF_SLUG
     action: stop
-
+  only:
+    - /^*-deploy$/
+    
 staging:
   stage: stage
   when: manual
