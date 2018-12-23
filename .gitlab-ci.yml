@@ -85,7 +85,7 @@ stop_review:
     - cd terraform
     - terraform init
     - terraform workspace select $CI_COMMIT_REF_SLUG
-    - terraform destroy -auto-approve
+    - terraform destroy -auto-approve -var "env_name=$CI_COMMIT_REF_SLUG"
     - terraform workspace select default
     - terraform workspace delete $CI_COMMIT_REF_SLUG
   when: manual
