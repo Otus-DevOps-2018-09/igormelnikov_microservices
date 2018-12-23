@@ -1,3 +1,11 @@
+data "terraform_remote_state" "gitlab" {
+  backend = "gcs"
+  config {
+    bucket = "gitlab-state"
+  }
+}
+
+
 provider "google" {
   version = "1.19.1"
   project = "${var.project}"
