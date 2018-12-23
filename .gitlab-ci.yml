@@ -69,7 +69,7 @@ branch review:
 
 stop_review:
   stage: review
-   script:
+  script:
     - cd -
     - apt-get update
     - apt-get --assume-yes install make ca-certificates openssl python unzip
@@ -94,7 +94,7 @@ stop_review:
     action: stop
   only:
     - /^*-deploy$/
-    
+
 staging:
   stage: stage
   when: manual
