@@ -1,6 +1,5 @@
-data "terraform_remote_state" "gitlab" {
-  backend = "gcs"
-  config {
+terraform {
+  backend "gcs" {
     bucket = "gitlab-state"
   }
 }
