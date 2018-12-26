@@ -1,5 +1,5 @@
 ---
-image: ruby:2.4.2
+image: docker:stable
 
 stages:
   - build
@@ -11,9 +11,14 @@ stages:
 variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
+services:
+  - docker:dind
+
 before_script:
+  - docker info
   - cd reddit
   - bundle install
+
 build_job:
   stage: build
   script:
