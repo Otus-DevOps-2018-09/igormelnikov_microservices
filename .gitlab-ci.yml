@@ -16,8 +16,6 @@ services:
 
 before_script:
   - docker info
-  - cd reddit
-  - bundle install
 
 build_job:
   stage: build
@@ -29,6 +27,9 @@ test_unit_job:
   services:
     - mongo:latest
   script:
+    - apt-get update
+    - apt-get install ruby-full
+    - cd reddit
     - ruby simpletest.rb
 
 test_integration_job:
