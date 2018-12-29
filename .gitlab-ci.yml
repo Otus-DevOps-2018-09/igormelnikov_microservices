@@ -24,8 +24,6 @@ build_job:
 
 test_unit_job:
   stage: test
-  services:
-    - mongo:latest
   script:
     - apt-get update
     - apt-get install ruby-full
