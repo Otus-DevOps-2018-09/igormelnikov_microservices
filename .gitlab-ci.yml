@@ -25,9 +25,11 @@ build_job:
 test_unit_job:
   stage: test
   script:
-    - apt-get update
-    - apt-get install ruby-full
+    - apk update
+    - apd upgrade
+    - apk add ruby ruby-bundler
     - cd reddit
+    - bundle install
     - ruby simpletest.rb
 
 test_integration_job:
