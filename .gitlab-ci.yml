@@ -44,8 +44,9 @@ branch review:
   stage: review
   script:
     - cd -
-    - apt-get update
-    - apt-get --assume-yes install make ca-certificates openssl python unzip
+    - apk update
+    - apk upgrade
+    - apk add make ca-certificates openssl python unzip
     - update-ca-certificates
     - echo $GOOGLE_CREDENTIALS > ${HOME}/gcloud-service-key.json
     - wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz
