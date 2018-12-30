@@ -25,12 +25,7 @@ build_job:
 test_unit_job:
   stage: test
   script:
-    - apk update
-    - apk upgrade
-    - apk add ruby-dev ruby-bundler make gcc libc-dev
-    - cd reddit
-    - bundle install
-    - ruby simpletest.rb
+    - echo 'Test script here'
 
 test_integration_job:
   stage: test
