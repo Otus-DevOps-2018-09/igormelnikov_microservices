@@ -27,7 +27,7 @@ test_unit_job:
   script:
     - apk update
     - apk upgrade
-    - apk add ruby-dev ruby-bundler
+    - apk add ruby-dev ruby-bundler make
     - cd reddit
     - bundle install
     - ruby simpletest.rb
