@@ -4,7 +4,7 @@
   vars_files:
     - secret_vars.yml
   vars:
-    count: 4
+    count: 1
   tasks:
     - name: Create runners
       docker_container:
@@ -23,7 +23,8 @@
     - name: Register runners for gitlab-ci
       command: "docker exec -it gitlab-runner{{ item }} gitlab-runner register  \
             --non-interactive --url http://{{ hostvars['gitlab-host'].ansible_host }} \ 
-            --registration-token {{ reg_token }} --executor docker --docker-image alpine:latest \ 
-            --description docker-runner --tag-list xenial,ubuntu,docker,linux --run-untagged --locked=false"
+            --registration-token {{ reg_token }} --executor docker --docker-image docker:stable \
+            --description docker-runner --tag-list xenial,ubuntu,docker,linux --run-untagged --locked=false \
+            --docker-privileged"
       when: container_ids.changed
       loop: "{{ range (0, count)|list }}"

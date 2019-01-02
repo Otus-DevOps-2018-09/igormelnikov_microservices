@@ -43,7 +43,6 @@ deploy_dev_job:
 branch review:
   stage: review
   script:
-    - pwd
     - apk update
     - apk upgrade
     - apk add make ca-certificates openssl python unzip
