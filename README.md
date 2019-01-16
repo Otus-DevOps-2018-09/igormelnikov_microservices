@@ -7,7 +7,7 @@ igormelnikov microservices repository
 
 В директории `docker-monolith` находятся Dockerfile и файлы конфигурации для конфигурации и деплоя reddit приложения с помощью docker.
 
-Внутри директории `docker-monolith/infra`:
+Внутри директории `infra-monolith`:
 
  - `terraform` - поднятие нескольких инстансов GCE в количестве `count` и открытие порта 9292;
  - `ansible` - `playbook.yml` вызывает `docker.yml` для установки docker и `reddit.yml` для деплоя контейнера из образа `igormelnikov/otus-reddit:1.0`;

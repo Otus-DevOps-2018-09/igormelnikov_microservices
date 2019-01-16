@@ -26,8 +26,8 @@
       file: path=/srv/gitlab state=directory
 
     - name: Add docker-compose for gitlab
-      template:
-        src: docker-compose.yml.j2
+      copy:
+        src: docker-compose.yml
         dest: /srv/gitlab/docker-compose.yml
 
     - name: Launch gitlab host container
