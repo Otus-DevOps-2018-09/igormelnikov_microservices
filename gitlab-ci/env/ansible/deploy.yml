@@ -1,0 +1,17 @@
+---
+- name: Pull image and deploy container
+  hosts: "{{ lookup('env', 'CI_COMMIT_REF_SLUG') }}"
+  become: true
+
+  tasks:
+    - name: Log into gitlab registry
+      docker_login:
+        registry: gitlabcitest.tk:4567
+        username: "{{ lookup('env', 'CI_DEPLOY_USER') }}"
+        password: "{{ lookup('env', 'CI_DEPLOY_PASSWORD') }}"
+    - name: Create container from image
+      docker_container:
+        name: reddit
+        image: "gitlabcitest.tk:4567/homework/example2:new-feature-deploy"
+        network_mode: host
+        pull: yes
