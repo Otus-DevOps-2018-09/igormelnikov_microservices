@@ -23,13 +23,13 @@ unless prometheus.exist?(:ui_health)
 end
 
 unless prometheus.exist?(:ui_health_post_availability)
-ui_health_post_gauge = Prometheus::Client::Gauge.new(:ui_health_post_availability, 'Check if Post service is available to UI')
-prometheus.register(ui_health_post_gauge)
+  ui_health_post_gauge = Prometheus::Client::Gauge.new(:ui_health_post_availability, 'Check if Post service is available to UI')
+  prometheus.register(ui_health_post_gauge)
 end
 
-unless prometheus.exist?(:ui_health_post_availability)
-ui_health_comment_gauge = Prometheus::Client::Gauge.new(:ui_health_comment_availability, 'Check if Comment service is available to UI')
-prometheus.register(ui_health_comment_gauge)
+unless prometheus.exist?(:ui_health_comment_availability)
+  ui_health_comment_gauge = Prometheus::Client::Gauge.new(:ui_health_comment_availability, 'Check if Comment service is available to UI')
+  prometheus.register(ui_health_comment_gauge)
 end
 
 @@host_info=ENV['HOSTNAME']
