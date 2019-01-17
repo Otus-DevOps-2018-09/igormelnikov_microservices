@@ -50,8 +50,10 @@ create_env:
     - terraform workspace select $CI_COMMIT_REF_NAME || terraform workspace new $CI_COMMIT_REF_NAME
     - terraform apply -auto-approve -var "env_name=$CI_COMMIT_REF_NAME" -var "project=$GCLOUD_PROJECT_NAME"
     - pip install google-auth
-    - sed -i "s/secret-project-name/$GCLOUD_PROJECT_NAME/g" ../ansible/inventory.gcp.yml
-    - ansible-playbook ../ansible/docker.yml
+    - cd ../ansible
+    - sed -i "s/secret-project-name/$GCLOUD_PROJECT_NAME/g" inventory.gcp.yml
+    - chmod 700 $(pwd)
+    - ansible-playbook docker.yml
 
   environment:
     name: branch/$CI_COMMIT_REF_NAME
@@ -70,6 +72,7 @@ deploy_dev_job:
     - pip install google-auth
     - cd gitlab-ci/env/ansible
     - sed -i "s/secret-project-name/$GCLOUD_PROJECT_NAME/g" inventory.gcp.yml
+    - chmod 700 $(pwd)
     - ansible-playbook destroy.yml
     - ansible-playbook deploy.yml
   only:
