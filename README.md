@@ -54,3 +54,8 @@ Terraform и Ansible были использованы для деплоя, по
 - `GOOGLE_CREDENTIALS` - json-файл сервис аккаунта GCE
 - `GOOGLE_APPUSER_KEY` - приватный файл ключа appuser
 - `GCLOUD_PROJECT_NAME` - название проекта GCE.
+
+## Monitoring-1
+
+Докерхаб с образами
+https://hub.docker.com/u/igormelnikov
