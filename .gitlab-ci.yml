@@ -1,28 +1,32 @@
 ---
-image: ruby:2.4.2
+image: ruby:2.4.4
 
 stages:
   - build
   - test
+  - env_setup
   - deploy
+  - stage
+  - production
 
 variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
-before_script:
-  - cd reddit
-  - bundle install
-
 build_job:
   stage: build
+  image: docker:stable
+  services:
+    - docker:dind
   script:
-    - echo 'Building'
+    - docker build -t $CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME docker-monolith
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker push $CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME
 
 test_unit_job:
   stage: test
-  services:
-    - mongo:latest
+  image: $CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME
   script:
+    - cd /reddit
     - ruby simpletest.rb
 
 test_integration_job:
@@ -30,7 +34,94 @@ test_integration_job:
   script:
     - echo 'Testing 2'
 
-deploy_job:
+create_env:
+  stage: env_setup
+  image: williamyeh/ansible:ubuntu16.04
+  script:
+    - apt-get update
+    - apt-get --assume-yes install wget unzip
+    - echo "$GOOGLE_CREDENTIALS" > ~/gcloud-service-key.json
+    - echo "$GOOGLE_APPUSER_KEY" > ~/appuser
+    - chmod 600 ~/appuser
+    - wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
+    - unzip terraform_0.11.11_linux_amd64.zip -d /usr/local/bin/
+    - cd gitlab-ci/env/terraform
+    - terraform init
+    - terraform workspace select $CI_COMMIT_REF_NAME || terraform workspace new $CI_COMMIT_REF_NAME
+    - terraform apply -auto-approve -var "env_name=$CI_COMMIT_REF_NAME" -var "project=$GCLOUD_PROJECT_NAME"
+    - pip install google-auth
+    - cd ../ansible
+    - sed -i "s/secret-project-name/$GCLOUD_PROJECT_NAME/g" inventory.gcp.yml
+    - chmod 700 $(pwd)
+    - ansible-playbook docker.yml
+
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    url: http://$CI_ENVIRONMENT_SLUG.example.com
+    on_stop: stop_env
+  only:
+    - /^*-deploy$/
+
+deploy_dev_job:
   stage: deploy
+  image: williamyeh/ansible:ubuntu16.04
+  script:
+    - echo "$GOOGLE_CREDENTIALS" > ~/gcloud-service-key.json
+    - echo "$GOOGLE_APPUSER_KEY" > ~/appuser
+    - chmod 600 ~/appuser
+    - pip install google-auth
+    - cd gitlab-ci/env/ansible
+    - sed -i "s/secret-project-name/$GCLOUD_PROJECT_NAME/g" inventory.gcp.yml
+    - chmod 700 $(pwd)
+    - ansible-playbook destroy.yml
+    - ansible-playbook deploy.yml
+  only:
+    - /^*-deploy$/
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    url: http://$CI_ENVIRONMENT_SLUG.example.com
+    on_stop: stop_env
+
+stop_env:
+  stage: env_setup
+  script:
+    - apt-get update
+    - apt-get --assume-yes install wget unzip
+    - echo $GOOGLE_CREDENTIALS > ~/gcloud-service-key.json
+    - wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
+    - unzip terraform_0.11.11_linux_amd64.zip -d /usr/local/bin/
+    - cd gitlab-ci/env/terraform
+    - terraform init
+    - terraform workspace select $CI_COMMIT_REF_NAME
+    - terraform destroy -auto-approve -var "env_name=$CI_COMMIT_REF_NAME" -var "project=$GCLOUD_PROJECT_NAME"
+    - terraform workspace select default
+    - terraform workspace delete $CI_COMMIT_REF_NAME
+  when: manual
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    action: stop
+  only:
+    - /^*-deploy$/
+
+staging:
+  stage: stage
+  when: manual
+  only:
+    - /^\d+\.\d+\.\d+/
   script:
     - echo 'Deploy'
+
+  environment:
+    name: stage
+    url: https://beta.example.com
+
+production:
+  stage: production
+  when: manual
+  only:
+    - /^\d+\.\d+\.\d+/
+  script:
+    - echo 'Deploy'
+  environment:
+    name: production
+    url: https://example.com

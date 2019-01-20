@@ -13,7 +13,7 @@ resource "google_compute_instance" "gitlab-host" {
   name         = "gitlab-host"
   machine_type = "n1-standard-1"
   zone = "${var.zone}"
-  tags = ["http-server", "https-server"]
+  tags = ["http-server", "https-server", "docker-registry"]
   labels = {
     "gitlab" = ""
   }
@@ -48,6 +48,32 @@ resource "google_compute_firewall" "firewall_https" {
     ports    = ["443"]
   }
   target_tags   = ["https-server"]
+}
+
+resource "google_compute_firewall" "firewall_puma" {
+  name = "default-puma-server"
+  network = "default"
+  allow {
+    protocol = "tcp"
+    ports = ["9292"]
+  }
+  target_tags = ["docker-machine"]
+}
+
+resource "google_compute_firewall" "firewall_registry" {
+  name = "allow-registry"
+  network = "default"
+  allow {
+    protocol = "tcp"
+    ports = ["4567"]
+  }
+  target_tags = ["docker-registry"]
+}
+
+module "storage-bucket" {
+  source  = "SweetOps/storage-bucket/google"
+  version = "0.1.1"
+  name    = ["gitlab-state"]
 }
 
 
