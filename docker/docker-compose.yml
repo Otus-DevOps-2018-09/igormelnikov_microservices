@@ -53,7 +53,7 @@ services:
       - front_net
       - back_net
   mongodb-exporter:
-    image: elarasu/mongodb_exporter:latest
+    image: ${USER_NAME}/mongodb-exporter:latest
     networks:
       - back_net
     environment:
