@@ -61,7 +61,11 @@ Terraform и Ansible были использованы для деплоя, по
 https://hub.docker.com/u/igormelnikov
 
 Докерфайлы для **reddit** находятся в подиректориях `src`.
+
 Конфигурация образа **Prometheus** находится в `monitoring/prometheus`.
+
 **mongodb-exporter** собирается из исходников https://github.com/percona/mongodb_exporter в директории `monitoring/mongodb-exporter`.
+
 Для **blackbox** используется готовый образ `prom/blackbox-exporter`
+
 В директории `docker` находятся Makefile для сборки и пуша образов в докерхаб и docker-compose.yml, запускающий **reddit** вместе с контейнерами для мониторинга.
