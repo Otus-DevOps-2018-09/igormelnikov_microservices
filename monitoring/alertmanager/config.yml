@@ -2,10 +2,18 @@ global:
   slack_api_url: 'https://hooks.slack.com/services/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'
 
 
+
 route:
-  receiver: 'slack-notifications'
+  receiver: 'alert-notifications'
 
 receivers:
-- name: 'slack-notifications'
+- name: 'alert-notifications'
   slack_configs:
   - channel: '#igor_melnikov'
+  email_configs:
+    - to: prodwiththeprod@gmail.com
+      from: prodwiththeprod@gmail.com
+      smarthost: smtp.gmail.com:587
+      auth_username: prodwiththeprod@gmail.com
+      auth_identity: prodwiththeprod@gmail.com
+      auth_password: google_auth_token

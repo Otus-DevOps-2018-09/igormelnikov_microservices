@@ -54,6 +54,15 @@ scrape_configs:
     static_configs:
       - targets:
         - 'post:5000'
+  - job_name: 'docker'
+    static_configs:
+      - targets:
+        - '10.132.0.13:9323'
+
+  - job_name: 'telegraf'
+    static_configs:
+      - targets:
+        - 'telegraf:9273'
 
 rule_files:
   - "alerts.yml"
@@ -64,4 +73,4 @@ alerting:
     static_configs:
     - targets:
       - "alertmanager:9093"
-    
+
