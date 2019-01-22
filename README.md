@@ -1,7 +1,7 @@
 # igormelnikov_microservices
 igormelnikov microservices repository
 
-[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=gitlab-ci-1)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
+[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=monitoring-1)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
 
 ## Docker-2
 
@@ -54,3 +54,18 @@ Terraform и Ansible были использованы для деплоя, по
 - `GOOGLE_CREDENTIALS` - json-файл сервис аккаунта GCE
 - `GOOGLE_APPUSER_KEY` - приватный файл ключа appuser
 - `GCLOUD_PROJECT_NAME` - название проекта GCE.
+
+## Monitoring-1
+
+Докерхаб с образами
+https://hub.docker.com/u/igormelnikov
+
+Докерфайлы для **reddit** находятся в подиректориях `src`.
+
+Конфигурация образа **Prometheus** находится в `monitoring/prometheus`.
+
+**mongodb-exporter** собирается из исходников https://github.com/percona/mongodb_exporter в директории `monitoring/mongodb-exporter`.
+
+Для **blackbox** используется готовый образ `prom/blackbox-exporter`.
+
+В директории `docker` находятся Makefile для сборки и пуша образов в докерхаб и docker-compose.yml, запускающий **reddit** вместе с контейнерами для мониторинга.
