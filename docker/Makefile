@@ -2,7 +2,7 @@ ifndef USER_NAME
 $(error USER_NAME is not set)
 endif
 
-IMAGE_PATHS=../src/ui ../src/post-py ../src/comment ../monitoring/prometheus ../monitoring/mongodb-exporter
+IMAGE_PATHS=../src/ui ../src/post-py ../src/comment ../monitoring/prometheus ../monitoring/mongodb-exporter ../monitoring/alertmanager ../monitoring/telegraf
 BUILDS = $(addsuffix /build_info.txt, $(IMAGE_PATHS))
 
 default: all
@@ -17,7 +17,7 @@ build: $(BUILDS)
 clean: 
 	rm $(BUILDS)
 
-.PHONY: clean push_ui push_post push_comment push_prometheus push_mongodb-exporter push_all
+.PHONY: clean push_ui push_post push_comment push_prometheus push_mongodb-exporter push_alertmanager push_telegraf push_all
 
 push_ui: ../src/ui/build_info.txt
 	docker push $(USER_NAME)/ui
@@ -34,4 +34,10 @@ push_prometheus: ../monitoring/prometheus/build_info.txt
 push_mongodb-exporter: ../monitoring/mongodb-exporter/build_info.txt
 	docker push $(USER_NAME)/mongodb-exporter
 
-push_all: push_post push_comment push_prometheus push_ui push_mongodb-exporter
+push_alertmanager: ../monitoring/alertmanager/build_info.txt
+	docker push $(USER_NAME)/alertmanager
+
+push_telegraf: ../monitoring/telegraf/build_info.txt
+	docker push $(USER_NAME)/telegraf
+
+push_all: push_post push_comment push_prometheus push_ui push_mongodb-exporter push_alertmanager push_telegraf
