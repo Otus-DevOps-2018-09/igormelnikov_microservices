@@ -1,0 +1,10 @@
+---
+- name: Stop and remove container
+  hosts: "{{ lookup('env', 'CI_COMMIT_REF_SLUG') }}"
+  become: true
+
+  tasks:
+    - name: Destroy container
+      docker_container:
+        name: reddit
+        state: absent
