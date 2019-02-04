@@ -5,7 +5,11 @@ ENV POST_DATABASE posts
 ENV APPHOME /app/post-py/
 
 COPY requirements.txt "$APPHOME"
-RUN pip install -r "$APPHOME/requirements.txt"
+RUN apk add --no-cache --virtual .build-deps \
+    gcc \
+    musl-dev && \
+    pip install -r "$APPHOME/requirements.txt" && \
+    apk del .build-deps
 
 COPY . $APPHOME
 

@@ -2,7 +2,9 @@ ifndef USER_NAME
 $(error USER_NAME is not set)
 endif
 
-IMAGE_PATHS=../src/ui ../src/post-py ../src/comment ../monitoring/prometheus ../monitoring/mongodb-exporter ../monitoring/alertmanager ../monitoring/telegraf
+
+IMAGE_PATHS=../src/ui ../src/post-py ../src/comment ../monitoring/prometheus ../monitoring/mongodb-exporter ../monitoring/alertmanager ../monitoring/telegraf ../logging/fluentd
+
 BUILDS = $(addsuffix /build_info.txt, $(IMAGE_PATHS))
 
 default: all
