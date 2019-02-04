@@ -70,6 +70,8 @@ https://hub.docker.com/u/igormelnikov
 
 В директории `docker` находятся Makefile для сборки и пуша образов в докерхаб и docker-compose.yml, запускающий **reddit** вместе с контейнерами для мониторинга.
 
+Кастомные образы для мониторинга также собираются с помощью соответствующего `docker_build.sh`, чтобы использовать `build_info.txt` в качестве таргета для **make.**
+
 ## Monitoring-2
 
 Мониторинг описан в отдельном файле `docker-compose-monitoring.yml`.
