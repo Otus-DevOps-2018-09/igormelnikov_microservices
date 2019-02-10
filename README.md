@@ -1,7 +1,7 @@
 # igormelnikov_microservices
 igormelnikov microservices repository
 
-[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=monitoring-1)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
+[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=kubernetes-2)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
 
 ## Docker-2
 
