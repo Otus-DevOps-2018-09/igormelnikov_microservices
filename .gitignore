@@ -7,3 +7,4 @@ infra-monolith/packer/variables.json
 .env
 secret_vars.yml
 build_info.txt
+Gitlab_ci
