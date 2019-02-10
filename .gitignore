@@ -8,3 +8,4 @@ infra-monolith/packer/variables.json
 secret_vars.yml
 build_info.txt
 Gitlab_ci
+tls.*
