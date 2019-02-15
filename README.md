@@ -1,7 +1,7 @@
 # igormelnikov_microservices
 igormelnikov microservices repository
 
-[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=monitoring-1)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
+[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=kubernetes-2)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
 
 ## Docker-2
 
@@ -69,6 +69,8 @@ https://hub.docker.com/u/igormelnikov
 Для **blackbox** используется готовый образ `prom/blackbox-exporter`.
 
 В директории `docker` находятся Makefile для сборки и пуша образов в докерхаб и docker-compose.yml, запускающий **reddit** вместе с контейнерами для мониторинга.
+
+Кастомные образы для мониторинга также собираются с помощью соответствующего `docker_build.sh`, чтобы использовать `build_info.txt` в качестве таргета для **make.**
 
 ## Monitoring-2
 

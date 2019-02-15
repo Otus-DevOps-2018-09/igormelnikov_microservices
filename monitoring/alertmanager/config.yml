@@ -16,4 +16,4 @@ receivers:
       smarthost: smtp.gmail.com:587
       auth_username: prodwiththeprod@gmail.com
       auth_identity: prodwiththeprod@gmail.com
-      auth_password: google_auth_token
+      auth_password: google_app_password
