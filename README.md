@@ -131,3 +131,11 @@ Telegraf - кастомизируемый агент, использующий �
  - `comment-service.yml`, `post-service.yml` - описание сервисов **post** и **comment** для **ui**;
  - `comment-mongodb-service.yml`, `post-mongodb-service.yml` - описание сервисов БД для **post** и **comment**;
  - `dev-namespace.yml` - описание неймспейса **dev**.
+
+## Kubernetes-3
+
+ - `ui-ingress.yml` - описание Ingress для сервиса **ui**, доступ только по HTTPS;
+ - `mongo-network-policy.yml` - описание политики сети для **mongodb**, ограничивающей входящий трафик отовсюду, кроме сервисов **post** и **comment**;
+ - `mongo-volume.yml` - описание PersistentVolume для кластера, `mongo-claim.yml` - запрос на выделение места из него для **mongodb**;
+ - `storage-fast.yml`, `mongo-claim-dynamic.yml` - описание StorageClass в GCE и Claim для него;
+ - `mongo-deployment.yml` использует динамический Claim.
