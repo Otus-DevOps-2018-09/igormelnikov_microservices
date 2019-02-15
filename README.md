@@ -1,7 +1,7 @@
 # igormelnikov_microservices
 igormelnikov microservices repository
 
-[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=monitoring-1)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
+[![Build Status](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices.svg?branch=kubernetes-2)](https://travis-ci.com/Otus-DevOps-2018-09/igormelnikov_microservices)
 
 ## Docker-2
 
@@ -121,3 +121,13 @@ Telegraf - кастомизируемый агент, использующий �
 `the_hard_way/terraform` содержит описание Terraform для инфраструктуры туториала в GCE - инстансы, правила фаервола, адреса и проч.
 
 `the_hard_way/ansible/playbook.yml` содержит пример конфигурации кластера для туториала с помощью Ansible - плейбук копирует заранее созданные ключи и сертификаты на соответствующие инстансы, а так же провиженит шаблон конфигурации для **etcd** сервиса и поднимает его на инстансах controller.
+
+## Kubernetes-2
+
+В директории `reddit` описаны манифесты компонентов reddit и сервисы для их связи между собой, а также `dev` окружение.
+
+ - `ui-deployment.yml`, `post-deployment.yml`, `comment-deployment.yml`, `mongo-deployment.yml` - деплоймент основных компонентов приложения и базы данных;
+ - `ui-service.yml` - описывает доступ к **ui** снаружи;
+ - `comment-service.yml`, `post-service.yml` - описание сервисов **post** и **comment** для **ui**;
+ - `comment-mongodb-service.yml`, `post-mongodb-service.yml` - описание сервисов БД для **post** и **comment**;
+ - `dev-namespace.yml` - описание неймспейса **dev**.
